@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="signInSignUp.Pages.SignUpPage">
+
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="25">
+        <Label
+                Text="Get Started"
+                Style="{StaticResource Headline}"
+                FontSize="35"
+                FontAttributes="Bold"
+                SemanticProperties.HeadingLevel="Level1"
+                SemanticProperties.Description="Get Started" />
+        <Label
+               Text="Create an account to organize your tasks and boost your productivity!"
+               Style="{StaticResource SubHeadline}"
+                FontSize="15"
+               SemanticProperties.HeadingLevel="Level2"
+               SemanticProperties.Description="Good Phrase2" />
+        <Image
+                Source="logoo.png"
+                HeightRequest="220"
+                Aspect="AspectFit"
+                SemanticProperties.Description="Logo Image" />
+        <Entry
+            x:Name="UsernameEntry"
+            Placeholder="Enter your username..."
+            SemanticProperties.Description="Username Input" />
+        <Entry
+            x:Name="EmailEntry"
+            Placeholder="Enter your email..."
+            SemanticProperties.Description="Email Input" />
+        <Entry
+            x:Name="PasswordEntry"
+            Placeholder="Enter your password..."
+            IsPassword="True"
+            SemanticProperties.Description="Password Input" />
+        <Entry
+            x:Name="PasswordReentry"
+            Placeholder="Enter your password again..."
+            IsPassword="True"
+            SemanticProperties.Description="Password Input" />
+        <Button
+            x:Name="SignUpButton"
+            Text="SIGN UP"
+            Clicked="OnSignUpButtonClicked"
+            SemanticProperties.Hint="Press to sign up"
+            HorizontalOptions="Fill" />
+        <Grid>
+            <Label
+                   Style="{StaticResource SubHeadline}"
+                   FontSize="15"
+                   SemanticProperties.HeadingLevel="Level4"
+                   SemanticProperties.Description="Short phrase to go sign up">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Already have an account? " TextColor="#6E7C5E" />
+                        <Span Text="Sign In" TextColor="#425A30" FontAttributes="Bold">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer
+                                      Tapped="OnSignInNav" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -1,4 +1,6 @@
-﻿namespace signInSignUp
+﻿using signInSignUp.Pages;
+
+namespace signInSignUp
 {
     public partial class MainPage : ContentPage
     {
@@ -19,7 +21,7 @@
         }
         private void OnSignUpLabelTapped(object sender, EventArgs e)
         {
-            DisplayAlert("Sign Up", "Navigate to Sign Up page", "OK");
+            Navigation.PushAsync(new SignUpPage());
         }
     }
 }
