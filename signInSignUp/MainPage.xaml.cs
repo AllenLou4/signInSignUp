@@ -17,5 +17,9 @@
             PasswordInput.IsPassword = !isPasswordVisible;
             TogglePass.Text = isPasswordVisible ? "Hide" : "Show";
         }
+        private void OnSignUpLabelTapped(object sender, EventArgs e)
+        {
+            DisplayAlert("Sign Up", "Navigate to Sign Up page", "OK");
+        }
     }
 }
