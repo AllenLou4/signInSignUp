@@ -5,29 +5,33 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+            Padding="25,0"
+            Spacing="15">
             <Label
-                Text="Welcome Back"
+                Text="Welcome Back!"
                 Style="{StaticResource Headline}"
+                FontFamily="MontserratBlack-Bold"
                 FontSize="35"
                 FontAttributes="Bold"
+                Margin="0,50,0,0"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Welcome label" />
             <Label
                Text="Good to have you back! Pick up where you left off and keep track of your progress!"
                Style="{StaticResource SubHeadline}"
                 FontSize="15"
+                TextColor="Black"
+                Margin="0,0,0,0"
                SemanticProperties.HeadingLevel="Level2"
                SemanticProperties.Description="Good Phrase" />
             <Image
                 Source="logo.png"
-                HeightRequest="185"
+                HeightRequest="270"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Logo Image" />
             <Entry
                 x:Name="EmailEntry"
-                Placeholder="Enter your email..."
+                Placeholder="Enter your email"
                 SemanticProperties.Description="Email Input" />
 
             <Grid>
@@ -36,17 +40,24 @@
                     Placeholder="Input Password"
                     IsPassword="True"
                     SemanticProperties.Description="Enter Password" />
-                <Button
-                    x:Name="TogglePass"
-                    Text="Show"
-                    Clicked="TogglePass_Clicked"
+                <Grid
+                    WidthRequest="35"
+                    HeightRequest="20"
                     HorizontalOptions="End"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center">
+                    <ImageButton
+                        Source="Resources/Images/nice_eye.png"
+                        Clicked="TogglePass_Clicked"
+                        Aspect="AspectFit"
+                        />
+                </Grid>
             </Grid>
 
             <Button
                 x:Name="SignInButton"
                 Text="SIGN IN" 
+                TextColor="#333333"
+                FontAttributes="Bold"
                 SemanticProperties.Hint="Press after inputting credentials"
                 HorizontalOptions="Fill" />
 
@@ -54,6 +65,7 @@
                 <Label
                    Style="{StaticResource SubHeadline}"
                    FontSize="15"
+                   Margin="0,90,0,0"
                    SemanticProperties.HeadingLevel="Level4"
                    SemanticProperties.Description="Short phrase to go sign up">
                     <Label.FormattedText>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="signInSignUp.Pages.SignUpPage">
+
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="15">
+        <Label
+                Text="Get Started"
+                Style="{StaticResource Headline}"
+                FontSize="40"
+                FontAttributes="Bold"
+                FontFamily="MontserratBlack-Bold"
+                Margin="0,30,0,0"
+                SemanticProperties.HeadingLevel="Level1"
+                SemanticProperties.Description="Get Started" />
+        <Label
+               Text="Create an account to organize your tasks and boost your productivity!"
+               Style="{StaticResource SubHeadline}"
+               FontSize="15"
+               TextColor="Black"
+               SemanticProperties.HeadingLevel="Level2"
+               SemanticProperties.Description="Good Phrase2" />
+        <Image
+                Source="logoo.png"
+                HeightRequest="250"
+                Aspect="AspectFit"
+                VerticalOptions="Center"
+                SemanticProperties.Description="Logo Image" />
+        <Entry
+            x:Name="EmailEntry"
+            Placeholder="Enter your email"
+            SemanticProperties.Description="Email Input" />
+        <Entry
+            x:Name="UsernameEntry"
+            Placeholder="Enter your username"
+            SemanticProperties.Description="Username Input" />
+        <Grid>
+            <Entry
+                    x:Name="PasswordEntry"
+                    Placeholder="Enter Password"
+                    IsPassword="True"
+                    SemanticProperties.Description="Enter Password" />
+            <Grid
+                    WidthRequest="35"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center">
+                <ImageButton
+                        Source="Resources/Images/nice_eye.png"
+                        Clicked="TogglePass_Clicked"
+                        CommandParameter="{x:Reference PasswordEntry}"
+                        Aspect="AspectFit"
+                        />
+            </Grid>
+        </Grid>
+        <Grid>
+            <Entry
+                    x:Name="PasswordReentry"
+                    Placeholder="Re-enter Password"
+                    IsPassword="True"
+                    SemanticProperties.Description="Re-enter Password" />
+            <Grid
+                    WidthRequest="35"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center">
+                <ImageButton
+                        Source="Resources/Images/nice_eye.png"
+                        Clicked="TogglePass_Clicked"
+                        CommandParameter="{x:Reference PasswordReentry}"
+                        Aspect="AspectFit"
+                        />
+            </Grid>
+        </Grid>
+        <Button
+            x:Name="SignUpButton"
+            Text="SIGN UP"
+            TextColor="#333333"
+            FontAttributes="Bold"
+            Clicked="OnSignUpButtonClicked"
+            SemanticProperties.Hint="Press to sign up"
+            HorizontalOptions="Fill" />
+        <Grid>
+            <Label
+                   Style="{StaticResource SubHeadline}"
+                   FontSize="15"
+                   SemanticProperties.HeadingLevel="Level4"
+                   SemanticProperties.Description="Short phrase to go sign up">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Already have an account? " TextColor="#6E7C5E" />
+                        <Span Text="Sign In" TextColor="#425A30" FontAttributes="Bold">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer
+                                      Tapped="OnSignInNav" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+    </VerticalStackLayout>
+
+</ContentPage>
