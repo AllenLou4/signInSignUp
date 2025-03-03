@@ -8,7 +8,7 @@
             Padding="30,0"
             Spacing="25">
             <Label
-                Text="Welcome Back!"
+                Text="Welcome Back"
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Welcome label" />
