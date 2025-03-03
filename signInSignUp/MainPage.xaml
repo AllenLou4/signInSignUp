@@ -10,30 +10,44 @@
             <Label
                 Text="Welcome Back"
                 Style="{StaticResource SubHeadline}"
+                FontSize="30"
+                FontAttributes="Bold"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Welcome label" />
             <Label
-               Text="Good to have you back! Pick up where you left off and keep track of your progress"
+               Text="Good to have you back! Pick up where you left off and keep track of your progress!"
                Style="{StaticResource SubHeadline}"
+                FontSize="15"
                SemanticProperties.HeadingLevel="Level2"
                SemanticProperties.Description="Good Phrase" />
             <Image
-                Source="dotnet_bot.png"
+                Source="logo.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+                SemanticProperties.Description="Logo Image" />
+            <Entry
+                x:Name="EmailEntry"
+                Placeholder="Enter your email..."
+                SemanticProperties.Description="Email Input" />
 
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-
+            <Grid>
+                <Entry
+                x:Name="PasswordInput"
+                Placeholder="Input Password"
+                IsPassword="True"
+                SemanticProperties.Description="Enter Password" />
+                <Button
+                x:Name="TogglePass"
+                Text="Show"
+                Clicked="TogglePass_Clicked"
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
+            </Grid>
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                x:Name="SignInButton"
+                Text="SIGN IN" 
+                SemanticProperties.Hint="Press after inputting credentials"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
