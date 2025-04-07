@@ -15,6 +15,7 @@ namespace signInSignUp.Pages
                 new FinishedTaskItem { Name = "Walk the dog", IsFinished = true },
                 new FinishedTaskItem { Name = "Finish project report", IsFinished = true },
                 new FinishedTaskItem { Name = "Call mom", IsFinished = true },
+                new FinishedTaskItem { Name = "Read a book", IsFinished = true }
             };
             BindingContext = this;
 
@@ -35,6 +36,11 @@ namespace signInSignUp.Pages
         private async void OnProfileClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProfilePage());
+        }
+
+        public void AddTask(FinishedTaskItem taskItem)
+        {
+            FinishedTasks.Add(taskItem);
         }
     }
 
