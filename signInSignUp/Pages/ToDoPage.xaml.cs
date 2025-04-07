@@ -34,6 +34,11 @@ namespace signInSignUp.Pages
         {
             NewTaskContainer.IsVisible = false;
         }
+
+        private async void OnFinishedClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FinishedPage());
+        }
     }
 
     public class TaskItem
