@@ -17,7 +17,7 @@ namespace signInSignUp.Pages
             NotesEditor.Text = _existingNote;
         }
 
-        // Example save method
+        // example save method
         private async void SaveNoteButton_Clicked(object sender, EventArgs e)
         {
             string updatedNote = NotesEditor.Text;

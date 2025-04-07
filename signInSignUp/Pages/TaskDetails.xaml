@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="signInSignUp.Pages.TaskDetails">
 
-    <Grid BackgroundColor="Black" RowSpacing="1" ColumnSpacing="1">
+    <Grid BackgroundColor="FloralWhite" RowSpacing="1" ColumnSpacing="1">
         <Editor
             x:Name="NotesEditor"
             Placeholder="Task notes here"

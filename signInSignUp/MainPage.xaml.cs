@@ -12,7 +12,9 @@ namespace signInSignUp
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
-
+        protected override bool OnBackButtonPressed(){
+            return true;
+        }
         private void TogglePass_Clicked(object sender, EventArgs e)
         {
             Utility.TogglePasswordVisibility(PasswordInput, ref isPasswordVisible);
