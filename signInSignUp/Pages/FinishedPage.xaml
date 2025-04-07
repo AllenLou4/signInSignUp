@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="signInSignUp.Pages.FinishedPage">
+             xmlns:local="clr-namespace:signInSignUp.Pages"
+             x:Class="signInSignUp.Pages.FinishedPage"
+             BackgroundColor="FloralWhite">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="FinishedTaskTemplate" x:DataType="local:FinishedTaskItem">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="10">
+                        <CheckBox IsChecked="{Binding IsFinished}" VerticalOptions="Center" />
+                        <Label Text="{Binding Name}" VerticalOptions="Center" FontAttributes="Bold"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -21,25 +37,16 @@
                        Grid.Row="0" />
                     <ListView
                        x:Name="FinishedTask"
+                       ItemsSource="{Binding FinishedTasks}"
+                       ItemTemplate="{StaticResource FinishedTaskTemplate}"
                        HasUnevenRows="True"
                        Grid.Row="2">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout Orientation="Horizontal" Padding="10">
-                                        <CheckBox IsChecked="{Binding IsFinished}" VerticalOptions="Center" />
-                                        <Label Text="{Binding Name}" VerticalOptions="Center" 
-                                        FontAttributes="Bold"/>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
             </ScrollView>
-
         </AbsoluteLayout>
-        <Border Grid.Row="1" BackgroundColor="White" Stroke="Gray" StrokeThickness=".5" HeightRequest="60">
+
+        <Border Grid.Row="1" BackgroundColor="FloralWhite" Stroke="Gray" StrokeThickness=".5" HeightRequest="60">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="signInSignUp.Pages.ToDoListPage">
+             x:Class="signInSignUp.Pages.ToDoListPage"
+             BackgroundColor="FloralWhite">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -81,7 +82,7 @@
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 Margin="10,10,10,10"/>
         </AbsoluteLayout>
-        <Border Grid.Row="1" BackgroundColor="White" Stroke="Gray" StrokeThickness=".5" HeightRequest="60">
+        <Border Grid.Row="1" BackgroundColor="FloralWhite" Stroke="Gray" StrokeThickness=".5" HeightRequest="60">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -103,7 +104,8 @@
                      HeightRequest="10" 
                      WidthRequest="10"
                      HorizontalOptions="Center" 
-                     VerticalOptions="Center" />
+                     VerticalOptions="Center"
+                     Clicked="OnProfileClicked" />
             </Grid>
         </Border>
     </Grid>

@@ -9,10 +9,22 @@ namespace signInSignUp.Pages
         public ToDoListPage()
         {
             InitializeComponent();
-            Tasks = new ObservableCollection<TaskItem>();
+            Tasks = new ObservableCollection<TaskItem>
+            {
+                new TaskItem { Name = "Buy groceries", IsFinished = false },
+                new TaskItem { Name = "Walk the dog", IsFinished = false },
+                new TaskItem { Name = "Finish project report", IsFinished = false },
+                new TaskItem { Name = "Call mom", IsFinished = false }
+            };
             BindingContext = this;
 
             NavigationPage.SetHasBackButton(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
 
         private void OnAddTaskClicked(object sender, EventArgs e)
@@ -38,6 +50,11 @@ namespace signInSignUp.Pages
         private async void OnFinishedClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FinishedPage());
+        }
+
+        private async void OnProfileClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
         }
     }
 
