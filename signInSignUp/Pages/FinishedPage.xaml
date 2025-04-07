@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="signInSignUp.Pages.FinishedPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <AbsoluteLayout Grid.Row="0">
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid Padding="10,0,10,10" RowDefinitions="Auto, Auto, *">
+                    <Label
+                       Text="Completed Tasks"
+                       Style="{StaticResource Headline}"
+                       FontFamily="MontserratBlack-Bold"
+                       FontSize="33"
+                       HorizontalOptions="Start" 
+                       Margin="0,0,0,0"
+                       Grid.Row="0" />
+                    <ListView
+                       x:Name="FinishedTask"
+                       HasUnevenRows="True"
+                       Grid.Row="2">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                        <CheckBox IsChecked="{Binding IsFinished}" VerticalOptions="Center" />
+                                        <Label Text="{Binding Name}" VerticalOptions="Center" 
+                                        FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollView>
+
+        </AbsoluteLayout>
+        <Border Grid.Row="1" BackgroundColor="White" Stroke="Gray" StrokeThickness=".5" HeightRequest="60">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="Resources/Images/list.png" Grid.Column="0"  
+                    HeightRequest="10" 
+                    WidthRequest="10"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    Clicked="OnToDoTodayClicked"/>
+                <ImageButton Source="Resources/Images/finished.png" Grid.Column="1" 
+                    HeightRequest="10" 
+                    WidthRequest="5"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" />
+                <ImageButton Source="Resources/Images/profile.png" Grid.Column="2" 
+                    HeightRequest="10" 
+                    WidthRequest="10"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    Clicked="OnProfileClicked"/>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>
