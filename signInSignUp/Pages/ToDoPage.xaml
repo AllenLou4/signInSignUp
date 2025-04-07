@@ -97,7 +97,8 @@
                      HeightRequest="10" 
                      WidthRequest="5"
                      HorizontalOptions="Center" 
-                     VerticalOptions="Center" />
+                     VerticalOptions="Center" 
+                     Clicked="OnFinishedClicked"/>
                 <ImageButton Source="Resources/Images/profile.png" Grid.Column="2" 
                      HeightRequest="10" 
                      WidthRequest="10"
