@@ -1,25 +1,25 @@
-﻿namespace signInSignUp
+﻿using signInSignUp.Pages;
+using signInSignUp.Helpers;
+
+namespace signInSignUp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        bool isPasswordVisible = false;
 
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void TogglePass_Clicked(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            Utility.TogglePasswordVisibility(PasswordInput, ref isPasswordVisible);
+        }
+        private void OnSignUpLabelTapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SignUpPage());
         }
     }
-
 }
