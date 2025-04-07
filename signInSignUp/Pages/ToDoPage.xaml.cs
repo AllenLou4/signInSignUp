@@ -56,6 +56,34 @@ namespace signInSignUp.Pages
         {
             await Navigation.PushAsync(new ProfilePage());
         }
+
+        private async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.BindingContext is TaskItem taskItem)
+            {
+                if (taskItem.IsFinished)
+                {
+                    bool isConfirmed = await DisplayAlert("Confirm", "Are you sure you have finished this task?", "Yes", "No");
+                    if (isConfirmed)
+                    {
+                        Tasks.Remove(taskItem);
+                        await MoveTaskToFinishedPage(taskItem);
+                    }
+                    else
+                    {
+                        taskItem.IsFinished = false;
+                        checkBox.IsChecked = false;
+                    }
+                }
+            }
+        }
+
+        private async Task MoveTaskToFinishedPage(TaskItem taskItem)
+        {
+            var finishedPage = new FinishedPage();
+            finishedPage.AddTask(new FinishedTaskItem { Name = taskItem.Name, IsFinished = taskItem.IsFinished });
+            await Navigation.PushAsync(finishedPage);
+        }
     }
 
     public class TaskItem
