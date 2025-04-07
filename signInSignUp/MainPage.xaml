@@ -41,7 +41,7 @@
                     IsPassword="True"
                     SemanticProperties.Description="Enter Password" />
                 <Grid
-                    WidthRequest="35"
+                    WidthRequest="20"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center">
@@ -58,6 +58,7 @@
                 Text="SIGN IN" 
                 TextColor="#333333"
                 FontAttributes="Bold"
+                Clicked="OnSignInButtonClicked"
                 SemanticProperties.Hint="Press after inputting credentials"
                 HorizontalOptions="Fill" />
 
