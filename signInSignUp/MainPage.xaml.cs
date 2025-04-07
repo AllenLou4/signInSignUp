@@ -21,5 +21,9 @@ namespace signInSignUp
         {
             Navigation.PushAsync(new SignUpPage());
         }
+        private void OnSignInButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ToDoListPage());
+        }
     }
 }
