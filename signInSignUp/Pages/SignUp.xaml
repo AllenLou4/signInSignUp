@@ -5,8 +5,8 @@
              BackgroundColor="FloralWhite">
     <ScrollView>
         <VerticalStackLayout
-        Padding="30,0"
-        Spacing="15">
+            Padding="30,0"
+            Spacing="15">
             <Label
                 Text="Get Started"
                 Style="{StaticResource Headline}"
@@ -30,13 +30,17 @@
                 VerticalOptions="Center"
                 SemanticProperties.Description="Logo Image" />
             <Entry
-            x:Name="EmailEntry"
-            Placeholder="Enter your email"
-            SemanticProperties.Description="Email Input" />
+                x:Name="FirstNameEntry"
+                Placeholder="Enter your first name"
+                SemanticProperties.Description="First Name Input" />
             <Entry
-            x:Name="UsernameEntry"
-            Placeholder="Enter your username"
-            SemanticProperties.Description="Username Input" />
+                x:Name="LastNameEntry"
+                Placeholder="Enter your last name"
+                SemanticProperties.Description="Last Name Input" />
+            <Entry
+                x:Name="EmailEntry"
+                Placeholder="Enter your email"
+                SemanticProperties.Description="Email Input" />
             <Grid>
                 <Entry
                     x:Name="PasswordEntry"
@@ -58,7 +62,7 @@
             </Grid>
             <Grid>
                 <Entry
-                    x:Name="PasswordReentry"
+                    x:Name="ConfirmPasswordEntry"
                     Placeholder="Re-enter Password"
                     IsPassword="True"
                     SemanticProperties.Description="Re-enter Password" />
@@ -70,19 +74,19 @@
                     <ImageButton
                         Source="Resources/Images/nice_eye.png"
                         Clicked="TogglePass_Clicked"
-                        CommandParameter="{x:Reference PasswordReentry}"
+                        CommandParameter="{x:Reference ConfirmPasswordEntry}"
                         Aspect="AspectFit"
                         />
                 </Grid>
             </Grid>
             <Button
-            x:Name="SignUpButton"
-            Text="SIGN UP"
-            TextColor="#333333"
-            FontAttributes="Bold"
-            Clicked="OnSignUpButtonClicked"
-            SemanticProperties.Hint="Press to sign up"
-            HorizontalOptions="Fill" />
+                x:Name="SignUpButton"
+                Text="SIGN UP"
+                TextColor="#333333"
+                FontAttributes="Bold"
+                Clicked="OnSignUpButtonClicked"
+                SemanticProperties.Hint="Press to sign up"
+                HorizontalOptions="Fill" />
             <Grid>
                 <Label
                    Style="{StaticResource SubHeadline}"
