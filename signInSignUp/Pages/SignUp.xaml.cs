@@ -18,7 +18,7 @@ namespace signInSignUp.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
-
+//edited
         private async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
             string email = EmailEntry.Text?.Trim();
