@@ -47,6 +47,16 @@ namespace signInSignUp.Pages
             NewTaskContainer.IsVisible = false;
         }
 
+        private async void OnTaskTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item is TaskItem tappedTask)
+            {
+                await Navigation.PushAsync(new TaskDetails(tappedTask.Name));
+            }
+
+            ((ListView)sender).SelectedItem = null;
+        }
+
         private async void OnFinishedClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FinishedPage());

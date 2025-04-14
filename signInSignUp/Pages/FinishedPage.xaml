@@ -28,7 +28,7 @@
             <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Grid Padding="10,0,10,10" RowDefinitions="Auto, Auto, *">
                     <Label
-                       Text="Finished"
+                       Text="Completed Tasks"
                        Style="{StaticResource Headline}"
                        FontFamily="MontserratBlack-Bold"
                        FontSize="33"

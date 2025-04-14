@@ -49,10 +49,11 @@
                         CornerRadius="30" />
                     </StackLayout>
                     <ListView
-                    x:Name="TasksListView"
-                    ItemsSource="{Binding Tasks}"
-                    HasUnevenRows="True"
-                    Grid.Row="2">
+                        x:Name="TasksListView"
+                        ItemsSource="{Binding Tasks}"
+                        ItemTapped="OnTaskTapped"
+                        HasUnevenRows="True"
+                        Grid.Row="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
