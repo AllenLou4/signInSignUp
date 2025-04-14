@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="signInSignUp.Pages.SignUpPage"
              BackgroundColor="FloralWhite">
+
     <ScrollView>
         <VerticalStackLayout
-        Padding="30,0"
-        Spacing="15">
+            Padding="30,0"
+            Spacing="15">
+
             <Label
                 Text="Get Started"
                 Style="{StaticResource Headline}"
@@ -16,6 +18,7 @@
                 Margin="0,30,0,0"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Get Started" />
+
             <Label
                Text="Create an account to organize your tasks and boost your productivity!"
                Style="{StaticResource SubHeadline}"
@@ -23,20 +26,29 @@
                TextColor="Black"
                SemanticProperties.HeadingLevel="Level2"
                SemanticProperties.Description="Good Phrase2" />
+
             <Image
                 Source="logoo.png"
                 HeightRequest="250"
                 Aspect="AspectFit"
                 VerticalOptions="Center"
                 SemanticProperties.Description="Logo Image" />
+
             <Entry
-            x:Name="EmailEntry"
-            Placeholder="Enter your email"
-            SemanticProperties.Description="Email Input" />
+                x:Name="FirstNameEntry"
+                Placeholder="Enter your first name"
+                SemanticProperties.Description="First Name Input" />
+
             <Entry
-            x:Name="UsernameEntry"
-            Placeholder="Enter your username"
-            SemanticProperties.Description="Username Input" />
+                x:Name="LastNameEntry"
+                Placeholder="Enter your last name"
+                SemanticProperties.Description="Last Name Input" />
+
+            <Entry
+                x:Name="EmailEntry"
+                Placeholder="Enter your email"
+                SemanticProperties.Description="Email Input" />
+
             <Grid>
                 <Entry
                     x:Name="PasswordEntry"
@@ -52,10 +64,10 @@
                         Source="Resources/Images/nice_eye.png"
                         Clicked="TogglePass_Clicked"
                         CommandParameter="{x:Reference PasswordEntry}"
-                        Aspect="AspectFit"
-                        />
+                        Aspect="AspectFit" />
                 </Grid>
             </Grid>
+
             <Grid>
                 <Entry
                     x:Name="PasswordReentry"
@@ -71,18 +83,19 @@
                         Source="Resources/Images/nice_eye.png"
                         Clicked="TogglePass_Clicked"
                         CommandParameter="{x:Reference PasswordReentry}"
-                        Aspect="AspectFit"
-                        />
+                        Aspect="AspectFit" />
                 </Grid>
             </Grid>
+
             <Button
-            x:Name="SignUpButton"
-            Text="SIGN UP"
-            TextColor="#333333"
-            FontAttributes="Bold"
-            Clicked="OnSignUpButtonClicked"
-            SemanticProperties.Hint="Press to sign up"
-            HorizontalOptions="Fill" />
+                x:Name="SignUpButton"
+                Text="SIGN UP"
+                TextColor="#333333"
+                FontAttributes="Bold"
+                Clicked="OnSignUpButtonClicked"
+                SemanticProperties.Hint="Press to sign up"
+                HorizontalOptions="Fill" />
+
             <Grid>
                 <Label
                    Style="{StaticResource SubHeadline}"
@@ -94,8 +107,7 @@
                             <Span Text="Already have an account? " TextColor="#6E7C5E" />
                             <Span Text="Sign In" TextColor="#425A30" FontAttributes="Bold">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                      Tapped="OnSignInNav" />
+                                    <TapGestureRecognizer Tapped="OnSignInNav" />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
