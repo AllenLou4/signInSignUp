@@ -1,37 +1,39 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
 
 namespace signInSignUp.Pages
 {
-    public partial class ToDoListPage : ContentPage
+    public partial class ToDoPage : ContentPage
     {
-        public ObservableCollection<TaskItem> Tasks { get; set; }
+        private readonly string baseUrl = "https://todo-list.dcism.org";
+        private readonly int userId; 
 
-        public ToDoListPage()
+        public ObservableCollection<TaskItem> Tasks { get; set; }
+        public ToDoPage(int userId)
         {
             InitializeComponent();
-            Tasks = new ObservableCollection<TaskItem>
-            {
-                new TaskItem { Name = "Buy groceries", IsFinished = false },
-                new TaskItem { Name = "Walk the dog", IsFinished = false },
-                new TaskItem { Name = "Finish project report", IsFinished = false },
-                new TaskItem { Name = "Call mom", IsFinished = false }
-            };
+            this.userId = userId;
+
+            Tasks = new ObservableCollection<TaskItem>();
             BindingContext = this;
 
             NavigationPage.SetHasBackButton(this, false);
             NavigationPage.SetHasNavigationBar(this, false);
+
+            LoadTasksAsync(); // Load tasks on start
         }
 
-        protected override bool OnBackButtonPressed()
+        protected override bool OnBackButtonPressed() => true;
+
+        private async void OnAddTaskClicked(object sender, EventArgs e)
         {
-            return true;
+            await Navigation.PushAsync(new TaskDetails(userId));
         }
 
-        private void OnAddTaskClicked(object sender, EventArgs e)
-        {
-            NewTaskContainer.IsVisible = true;
-            NewTaskEntry.Text = string.Empty;
-        }
 
         private void OnSaveTaskClicked(object sender, EventArgs e)
         {
@@ -49,7 +51,7 @@ namespace signInSignUp.Pages
 
         private async void OnFinishedClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new FinishedPage());
+            await LoadTasksAsync("inactive");
         }
 
         private async void OnProfileClicked(object sender, EventArgs e)
@@ -59,30 +61,47 @@ namespace signInSignUp.Pages
 
         private async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            if (sender is CheckBox checkBox && checkBox.BindingContext is TaskItem taskItem)
-            {
-                if (taskItem.IsFinished)
-                {
-                    bool isConfirmed = await DisplayAlert("Confirm", "Are you sure you have finished this task?", "Yes", "No");
-                    if (isConfirmed)
-                    {
-                        Tasks.Remove(taskItem);
-                        await MoveTaskToFinishedPage(taskItem);
-                    }
-                    else
-                    {
-                        taskItem.IsFinished = false;
-                        checkBox.IsChecked = false;
-                    }
-                }
-            }
+            // You can later add API code to update task status here
         }
 
-        private async Task MoveTaskToFinishedPage(TaskItem taskItem)
+        private async Task LoadTasksAsync(string status = "active")
         {
-            var finishedPage = new FinishedPage();
-            finishedPage.AddTask(new FinishedTaskItem { Name = taskItem.Name, IsFinished = taskItem.IsFinished });
-            await Navigation.PushAsync(finishedPage);
+            try
+            {
+                using HttpClient client = new();
+                string url = $"{baseUrl}/getItems_action.php?status={status}&user_id={userId}";
+
+                var response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("Error", "Failed to load tasks", "OK");
+                    return;
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<TaskApiResponse>(json);
+
+                if (result?.Status == 200)
+                {
+                    Tasks.Clear();
+                    foreach (var task in result.Data.Values)
+                    {
+                        Tasks.Add(new TaskItem
+                        {
+                            Name = task.ItemName,
+                            IsFinished = task.Status == "inactive"
+                        });
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Error", result?.Message ?? "Unexpected error", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 
@@ -90,5 +109,22 @@ namespace signInSignUp.Pages
     {
         public string Name { get; set; }
         public bool IsFinished { get; set; }
+    }
+
+    public class TaskApiResponse
+    {
+        public int Status { get; set; }
+        public string Message { get; set; }
+        public Dictionary<string, TaskData> Data { get; set; }
+    }
+
+    public class TaskData
+    {
+        public int ItemId { get; set; }
+        public string ItemName { get; set; }
+        public string ItemDescription { get; set; }
+        public string Status { get; set; }
+        public int UserId { get; set; }
+        public string Timemodified { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace signInSignUp
                     {
                         await DisplayAlert("Success", responseJson.message, "OK");
 
-                        await Navigation.PushAsync(new ToDoListPage());
+                        await Navigation.PushAsync(new ToDoPage(responseJson.data.id));
                     }
                     else
                     {

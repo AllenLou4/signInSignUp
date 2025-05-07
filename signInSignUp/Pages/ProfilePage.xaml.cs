@@ -17,10 +17,10 @@ public partial class ProfilePage : ContentPage
     }
     private async void OnToDoTodayClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ToDoListPage());
+        //await Navigation.PushAsync(new ToDoPage());
     }
     private async void OnFinishedClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new FinishedPage());
+        //await Navigation.PushAsync(new FinishedPage());
     }
 }
