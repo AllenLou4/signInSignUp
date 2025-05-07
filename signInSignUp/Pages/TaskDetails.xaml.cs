@@ -15,6 +15,99 @@ namespace signInSignUp.Pages
             this.userId = userId;
         }
 
+        private void OnBackClicked(object sender, EventArgs e)
+        {
+            Navigation.PopAsync();
+        }
+
+        private async void OnAttachClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = await FilePicker.Default.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Select a file"
+                });
+
+                if (result != null)
+                {
+                    string fileName = result.FileName;
+                    string fileExtension = Path.GetExtension(fileName).ToLower();
+
+                    // Choose an icon based on the file type
+                    string iconSource = fileExtension switch
+                    {
+                        ".pdf" => "pdf_icon.png",
+                        ".doc" or ".docx" => "doc_icon.png",
+                        ".xls" or ".xlsx" => "excel_icon.png",
+                        ".ppt" or ".pptx" => "ppt_icon.png",
+                        ".txt" => "text_icon.png",
+                        _ => "file_icon.png"
+                    };
+
+                    FileIcon.Source = iconSource;
+                    FileNameLabel.Text = fileName;
+                    AttachmentPreview.IsVisible = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"File selection failed: {ex.Message}", "OK");
+            }
+        }
+
+        private async void OnImageClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
+                {
+                    Title = "Select an image"
+                });
+
+                if (result != null)
+                {
+                    using var stream = await result.OpenReadAsync();
+                    SelectedImage.Source = ImageSource.FromStream(() => stream);
+                    ImagePreview.IsVisible = true;
+                }
+            }
+            catch (FeatureNotSupportedException)
+            {
+                await DisplayAlert("Error", "Photo picking is not supported on this device.", "OK");
+            }
+            catch (PermissionException)
+            {
+                await DisplayAlert("Error", "Permission to access photos was denied.", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Image selection failed: {ex.Message}", "OK");
+            }
+        }
+
+        private async void OnMoreOptionsClicked(object sender, EventArgs e)
+        {
+            string action = await DisplayActionSheet("Options", "Cancel", null, "Save", "Delete");
+
+            switch (action)
+            {
+                case "Save":
+                    OnSaveTaskClicked(sender, e);
+                    break;
+
+                case "Delete":
+                    bool confirm = await DisplayAlert("Confirm Delete", "Are you sure you want to delete this task?", "Yes", "No");
+                    if (confirm)
+                    {
+                        await DisplayAlert("Deleted", "Task has been deleted.", "OK"); // Replace with actual delete logic
+                        await Navigation.PopAsync(); // Navigate back
+                    }
+                    break;
+            }
+        }
+
         private async void OnSaveTaskClicked(object sender, EventArgs e)
         {
             string taskName = TaskNameEntry.Text;
@@ -47,6 +140,9 @@ namespace signInSignUp.Pages
                 {
                     StatusLabel.Text = "Task added successfully!";
                     StatusLabel.IsVisible = true;
+
+                    await Task.Delay(900);
+                    await Navigation.PopAsync();
                 }
                 else
                 {
@@ -58,6 +154,14 @@ namespace signInSignUp.Pages
                 await DisplayAlert("Error", $"Failed to connect: {ex.Message}", "OK");
             }
         }
+
+        private async Task DeleteTaskAsync()
+        {
+            // Call delete API here if task has ID
+            await DisplayAlert("Deleted", "Task has been deleted.", "OK");
+            await Navigation.PopAsync();
+        }
+
 
         public class AddTaskResponse
         {

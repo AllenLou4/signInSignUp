@@ -29,7 +29,9 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout Orientation="Horizontal" Padding="10">
-                                        <CheckBox IsChecked="{Binding IsFinished}" VerticalOptions="Center" CheckedChanged="OnCheckBoxCheckedChanged" />
+                                        <CheckBox IsChecked="{Binding IsFinished, Mode=TwoWay}"
+                                         VerticalOptions="Center"
+                                         CheckedChanged="OnCheckBoxCheckedChanged" />
                                         <Label Text="{Binding Name}" VerticalOptions="Center" FontAttributes="Bold"/>
                                     </StackLayout>
                                 </ViewCell>

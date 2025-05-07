@@ -46,6 +46,15 @@
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
+	
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>12345678</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>NiceAlias</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>12345678</AndroidSigningKeyPass>
+	</PropertyGroup>
+
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -65,8 +74,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -98,5 +108,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
+	
+	
 </Project>

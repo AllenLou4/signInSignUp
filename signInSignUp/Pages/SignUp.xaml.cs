@@ -8,12 +8,86 @@ namespace signInSignUp.Pages
     public partial class SignUpPage : ContentPage
     {
         bool isPasswordVisible = false;
+        bool isConfirmPasswordVisible = false;
+
 
         public SignUpPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
+        private void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            if (sender == FirstNameEntry)
+            {
+                FirstNameBorder.Stroke = Colors.DarkOliveGreen;
+                FirstNameBorder.StrokeThickness = 2;
+            }
+            else if (sender == LastNameEntry)
+            {
+                LastNameBorder.Stroke = Colors.DarkOliveGreen;
+                LastNameBorder.StrokeThickness = 2;
+            }
+            else if (sender == EmailEntry)
+            {
+                EmailBorder.Stroke = Colors.DarkOliveGreen;
+                EmailBorder.StrokeThickness = 2;
+            }
+            else if (sender == PasswordEntry)
+            {
+                PasswordBorder.Stroke = Colors.DarkOliveGreen;
+                PasswordBorder.StrokeThickness = 2;
+            }
+            else if (sender == ConfirmPasswordEntry)
+            {
+                ConfirmPasswordBorder.Stroke = Colors.DarkOliveGreen;
+                ConfirmPasswordBorder.StrokeThickness = 2;
+            }
+        }
+
+        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var defaultColor = Color.FromArgb("#8F8E8E");
+
+            if (sender == FirstNameEntry)
+            {
+                FirstNameBorder.Stroke = defaultColor;
+                FirstNameBorder.StrokeThickness = 1;
+            }
+            else if (sender == LastNameEntry)
+            {
+                LastNameBorder.Stroke = defaultColor;
+                LastNameBorder.StrokeThickness = 1;
+            }
+            else if (sender == EmailEntry)
+            {
+                EmailBorder.Stroke = defaultColor;
+                EmailBorder.StrokeThickness = 1;
+            }
+            else if (sender == PasswordEntry)
+            {
+                PasswordBorder.Stroke = defaultColor;
+                PasswordBorder.StrokeThickness = 1;
+            }
+            else if (sender == ConfirmPasswordEntry)
+            {
+                ConfirmPasswordBorder.Stroke = defaultColor;
+                ConfirmPasswordBorder.StrokeThickness = 1;
+            }
+        }
+
+        private void TogglePassword_Clicked(object sender, EventArgs e)
+        {
+            Utility.TogglePasswordVisibility(PasswordEntry, ref isPasswordVisible);
+            PasswordEyeIcon.Source = isPasswordVisible ? "eyeshow.svg" : "eyehidden.svg";
+        }
+
+        private void ToggleConfirmPassword_Clicked(object sender, EventArgs e)
+        {
+            Utility.TogglePasswordVisibility(ConfirmPasswordEntry, ref isConfirmPasswordVisible);
+            ConfirmPasswordEyeIcon.Source = isConfirmPasswordVisible ? "eyeshow.svg" : "eyehidden.svg";
+        }
+
 
         private async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
@@ -82,15 +156,7 @@ namespace signInSignUp.Pages
             await Navigation.PopAsync();
         }
 
-        private void TogglePass_Clicked(object sender, EventArgs e)
-        {
-            var button = sender as ImageButton;
-            var entry = button?.CommandParameter as Entry;
-            if (entry != null)
-            {
-                Utility.TogglePasswordVisibility(entry, ref isPasswordVisible);
-            }
-        }
+
     }
 
     public class SignUpResponse

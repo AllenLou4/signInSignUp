@@ -5,64 +5,108 @@
              BackgroundColor="FloralWhite">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="25,0"
-            Spacing="15">
+        <VerticalStackLayout Padding="25,0" Spacing="15" InputTransparent="False">
+
+            <!-- Welcome Text -->
             <Label
                 Text="Welcome Back!"
                 Style="{StaticResource Headline}"
-                FontFamily="MontserratBlack-Bold"
+                FontFamily="Inter24ExtraBold"
                 FontSize="35"
                 FontAttributes="Bold"
                 Margin="0,50,0,0"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Welcome label" />
+
             <Label
                Text="Good to have you back! Pick up where you left off and keep track of your progress!"
                Style="{StaticResource SubHeadline}"
-                FontSize="15"
-                TextColor="Black"
-                Margin="0,0,0,0"
+               FontFamily="RobotoRegular"
+               FontSize="16"
+               TextColor="Black"
+               Margin="0,-20,0,0"
                SemanticProperties.HeadingLevel="Level2"
                SemanticProperties.Description="Good Phrase" />
+
             <Image
-                Source="logo.png"
-                HeightRequest="270"
+                Source="signinlogo.svg"
+                HeightRequest="250"
                 Aspect="AspectFit"
+                Margin="10,10,0,0"
                 SemanticProperties.Description="Logo Image" />
-            <Entry
-                x:Name="EmailEntry"
-                Placeholder="Enter your email"
-                SemanticProperties.Description="Email Input" />
 
-            <Grid>
-                <Entry
-                    x:Name="PasswordInput"
-                    Placeholder="Input Password"
-                    IsPassword="True"
-                    SemanticProperties.Description="Enter Password" />
-                <Grid
-                    WidthRequest="20"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center">
-                    <ImageButton
-                        Source="Resources/Images/nice_eye.png"
-                        Clicked="TogglePass_Clicked"
-                        Aspect="AspectFit"
-                        />
-                </Grid>
-            </Grid>
+            <!-- Email Field -->
+            <VerticalStackLayout Spacing="0">
+                <Label Text="Email"
+                       FontSize="14"
+                       TextColor="Black"
+                       Margin="20,-5,0,0"/>
+                <Border x:Name="EmailBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Someone@mail.com"
+                           BackgroundColor="Transparent"
+                           FontSize="14"
+                           TextColor="Black"
+                           PlaceholderColor="Gray"
+                           Margin="10,5"
+                           Focused="Entry_Focused"
+                           Unfocused="Entry_Unfocused"/>
+                </Border>
+            </VerticalStackLayout>
 
+            <!-- Password Field -->
+            <VerticalStackLayout Spacing="0">
+                <Label Text="Password"
+                       FontSize="14"
+                       TextColor="Black"
+                       Margin="20,-5,0,0"/>
+                    <Border x:Name="PasswordBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Grid Padding="10,5">
+                        <Entry x:Name="PasswordInput"
+                               Placeholder="Enter password"
+                               IsPassword="True"
+                               BackgroundColor="Transparent"
+                               FontSize="14"
+                               TextColor="Black"
+                               PlaceholderColor="Gray"
+                               Focused="Entry_Focused"
+                               Unfocused="Entry_Unfocused"
+                               HorizontalOptions="FillAndExpand"/>
+                        <Image x:Name="EyeIcon"
+                               Source="eyehidden.svg"
+                               WidthRequest="24"
+                               HeightRequest="24"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TogglePass_Clicked" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Sign In Button -->
             <Button
                 x:Name="SignInButton"
                 Text="SIGN IN" 
+                FontFamily="Inter18ptBold"
+                FontSize="24"
                 TextColor="#333333"
                 FontAttributes="Bold"
                 Clicked="OnSignInButtonClicked"
                 SemanticProperties.Hint="Press after inputting credentials"
                 HorizontalOptions="Fill" />
 
+            <!-- Sign Up Label -->
             <Grid>
                 <Label
                    Style="{StaticResource SubHeadline}"
@@ -75,8 +119,7 @@
                             <Span Text="Don't have an account? " TextColor="#6E7C5E" />
                             <Span Text="Sign Up" TextColor="#425A30" FontAttributes="Bold">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                      Tapped="OnSignUpLabelTapped" />
+                                    <TapGestureRecognizer Tapped="OnSignUpLabelTapped" />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>

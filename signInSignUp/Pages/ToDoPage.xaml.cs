@@ -39,7 +39,7 @@ namespace signInSignUp.Pages
             this.userId = userId;
 
             Tasks = new ObservableCollection<TaskItem>();
-            HeaderText = "To Do Today"; // default
+            HeaderText = "To Do Today"; 
             BindingContext = this;
 
             NavigationPage.SetHasBackButton(this, false);

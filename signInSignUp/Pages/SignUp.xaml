@@ -12,81 +12,166 @@
                 Style="{StaticResource Headline}"
                 FontSize="40"
                 FontAttributes="Bold"
-                FontFamily="MontserratBlack-Bold"
+                FontFamily="Inter24ExtraBold"
                 Margin="0,30,0,0"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Get Started" />
             <Label
                Text="Create an account to organize your tasks and boost your productivity!"
                Style="{StaticResource SubHeadline}"
-               FontSize="15"
+               FontFamily="RobotoRegular"
+               FontSize="16"
                TextColor="Black"
+               Margin="0,-20,0,0"
                SemanticProperties.HeadingLevel="Level2"
                SemanticProperties.Description="Good Phrase2" />
             <Image
-                Source="logoo.png"
-                HeightRequest="250"
+                Source="signuplogo.svg"
+                HeightRequest="180"
                 Aspect="AspectFit"
+                Margin="5,10,0,10"
                 VerticalOptions="Center"
                 SemanticProperties.Description="Logo Image" />
-            <Entry
-                x:Name="FirstNameEntry"
-                Placeholder="Enter your first name"
-                SemanticProperties.Description="First Name Input" />
-            <Entry
-                x:Name="LastNameEntry"
-                Placeholder="Enter your last name"
-                SemanticProperties.Description="Last Name Input" />
-            <Entry
-                x:Name="EmailEntry"
-                Placeholder="Enter your email"
-                SemanticProperties.Description="Email Input" />
-            <Grid>
-                <Entry
-                    x:Name="PasswordEntry"
-                    Placeholder="Enter Password"
-                    IsPassword="True"
-                    SemanticProperties.Description="Enter Password" />
-                <Grid
-                    WidthRequest="35"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center">
-                    <ImageButton
-                        Source="Resources/Images/nice_eye.png"
-                        Clicked="TogglePass_Clicked"
-                        CommandParameter="{x:Reference PasswordEntry}"
-                        Aspect="AspectFit"
-                        />
-                </Grid>
-            </Grid>
-            <Grid>
-                <Entry
-                    x:Name="ConfirmPasswordEntry"
-                    Placeholder="Re-enter Password"
-                    IsPassword="True"
-                    SemanticProperties.Description="Re-enter Password" />
-                <Grid
-                    WidthRequest="35"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center">
-                    <ImageButton
-                        Source="Resources/Images/nice_eye.png"
-                        Clicked="TogglePass_Clicked"
-                        CommandParameter="{x:Reference ConfirmPasswordEntry}"
-                        Aspect="AspectFit"
-                        />
-                </Grid>
-            </Grid>
+            
+            <!-- First Name Field -->
+            <VerticalStackLayout Spacing="0">
+                <Border x:Name="FirstNameBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Entry x:Name="FirstNameEntry"
+                           Placeholder="First Name"
+                           BackgroundColor="Transparent"
+                           FontSize="14"
+                           TextColor="Black"
+                           PlaceholderColor="Gray"
+                           Margin="10,5"
+                           Focused="Entry_Focused"
+                           Unfocused="Entry_Unfocused"
+                           SemanticProperties.Description="First Name Input" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Last Name Field -->
+            <VerticalStackLayout Spacing="0">
+                <Border x:Name="LastNameBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Entry x:Name="LastNameEntry"
+                           Placeholder="First Name"
+                           BackgroundColor="Transparent"
+                           FontSize="14"
+                           TextColor="Black"
+                           PlaceholderColor="Gray"
+                           Margin="10,5"
+                           Focused="Entry_Focused"
+                           Unfocused="Entry_Unfocused"
+                           SemanticProperties.Description="Last Name Input" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Email Field -->
+            <VerticalStackLayout Spacing="0">
+                <Border x:Name="EmailBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="First Name"
+                           BackgroundColor="Transparent"
+                           FontSize="14"
+                           TextColor="Black"
+                           PlaceholderColor="Gray"
+                           Margin="10,5"
+                           Focused="Entry_Focused"
+                           Unfocused="Entry_Unfocused"
+                           SemanticProperties.Description="Email Input" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Create Password Field -->
+            <VerticalStackLayout Spacing="0">
+                <Border x:Name="PasswordBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Grid Padding="10,5">
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Create Password"
+                               IsPassword="True"
+                               BackgroundColor="Transparent"
+                               FontSize="14"
+                               TextColor="Black"
+                               PlaceholderColor="Gray"
+                               Focused="Entry_Focused"
+                               Unfocused="Entry_Unfocused"
+                               HorizontalOptions="FillAndExpand"
+                               SemanticProperties.Description="Enter Password" />
+                        <Image x:Name="PasswordEyeIcon"
+                               Source="eyehidden.svg"
+                               WidthRequest="24"
+                               HeightRequest="24"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TogglePassword_Clicked" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Confirm Password Field -->
+            <VerticalStackLayout Spacing="0">
+                <Border x:Name="ConfirmPasswordBorder"
+                        Stroke="#8F8E8E"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 8">
+                    <Grid Padding="10,5">
+                        <Entry x:Name="ConfirmPasswordEntry"
+                               Placeholder="Re-enter Password"
+                               IsPassword="True"
+                               BackgroundColor="Transparent"
+                               FontSize="14"
+                               TextColor="Black"
+                               PlaceholderColor="Gray"
+                               Focused="Entry_Focused"
+                               Unfocused="Entry_Unfocused"
+                               HorizontalOptions="FillAndExpand"
+                               SemanticProperties.Description="Re-enter Password" />
+                        <Image x:Name="ConfirmPasswordEyeIcon"
+                               Source="eyehidden.svg"
+                               WidthRequest="24"
+                               HeightRequest="24"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ToggleConfirmPassword_Clicked" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Sign Up Button -->
             <Button
                 x:Name="SignUpButton"
                 Text="SIGN UP"
+                FontFamily="Inter18ptBold"
+                FontSize="24"
                 TextColor="#333333"
                 FontAttributes="Bold"
                 Clicked="OnSignUpButtonClicked"
                 SemanticProperties.Hint="Press to sign up"
                 HorizontalOptions="Fill" />
+
+            <!-- Sign In Label -->
             <Grid>
                 <Label
                    Style="{StaticResource SubHeadline}"
