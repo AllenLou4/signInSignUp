@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.Text;
 
 namespace signInSignUp.Pages
 {
@@ -33,14 +35,73 @@ namespace signInSignUp.Pages
             NewTaskEntry.Text = string.Empty;
         }
 
-        private void OnSaveTaskClicked(object sender, EventArgs e)
+        private async void OnSaveTaskClicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(NewTaskEntry.Text))
+            string itemName = NewTaskEntry.Text?.Trim();
+            string itemDescription = NewDescriptionEntry.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(itemName) || string.IsNullOrWhiteSpace(itemDescription))
             {
-                Tasks.Add(new TaskItem { Name = NewTaskEntry.Text, IsFinished = false });
-                NewTaskContainer.IsVisible = false;
+                await DisplayAlert("Error", "Please fill in both task name and description.", "OK");
+                return;
+            }
+
+            var newItem = new
+            {
+                item_name = itemName,
+                item_description = itemDescription,
+                user_id = 3 // Replace with actual logged-in user ID
+            };
+
+
+            var json = JsonSerializer.Serialize(newItem);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using var httpClient = new HttpClient();
+
+            try
+            {
+                var response = await httpClient.PostAsync("https://todo-list.dcism.org/addItem_action.php", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("Response JSON: " + responseContent);
+
+                using var doc = JsonDocument.Parse(responseContent);
+                var root = doc.RootElement;
+
+                int status = root.GetProperty("status").GetInt32();
+                string message = root.GetProperty("message").GetString();
+
+                if (status == 200)
+                {
+                    var dataJson = root.GetProperty("data").GetRawText();
+                    var task = JsonSerializer.Deserialize<TaskData>(dataJson);  // <-- FIXED HERE
+
+                    Tasks.Add(new TaskItem
+                    {
+                        ItemId = task.item_id,
+                        Name = task.item_name,
+                        Description = task.item_description,
+                        IsFinished = task.status == "done",
+                        UserId = task.user_id,
+                        TimeModified = string.IsNullOrWhiteSpace(task.timemodified)
+                            ? DateTime.Now
+                            : DateTime.Parse(task.timemodified)
+
+                    });
+
+                    NewTaskContainer.IsVisible = false;
+                }
+                else
+                {
+                    await DisplayAlert("Error", message ?? "Failed to add task.", "OK");
+                }
+            }
+            catch (Exception ex)  // <-- FIXED HERE
+            {
+                await DisplayAlert("Error", "An error occurred: " + ex.Message, "OK");
             }
         }
+
 
         private void OnCancelTaskClicked(object sender, EventArgs e)
         {
@@ -88,7 +149,28 @@ namespace signInSignUp.Pages
 
     public class TaskItem
     {
-        public string Name { get; set; }
-        public bool IsFinished { get; set; }
+        public int ItemId { get; set; } // item_id from response
+        public string Name { get; set; } // item_name
+        public string Description { get; set; } // optional
+        public bool IsFinished { get; set; } // status = "done" or "active"
+        public int UserId { get; set; } // needed when posting
+        public DateTime TimeModified { get; set; }
     }
-}
+
+    public class AddToDoResponse
+    {
+        public int status { get; set; }
+        public TaskData data { get; set; }
+        public string message { get; set; }
+    }
+    public class TaskData
+    {
+        public int item_id { get; set; }
+        public string item_name { get; set; }
+        public string item_description { get; set; }
+        public string status { get; set; }
+        public int user_id { get; set; }
+        public string timemodified { get; set; }
+    }
+
+    }
