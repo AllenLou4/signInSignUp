@@ -21,33 +21,6 @@
                         HorizontalOptions="Start" 
                         Margin="0,0,0,0"
                         Grid.Row="0" />
-                    <StackLayout 
-                        x:Name="NewTaskContainer" 
-                        IsVisible="False" 
-                        Orientation="Horizontal" 
-                        Spacing="10"
-                        Grid.Row="1"
-                        HorizontalOptions="FillAndExpand">
-                        <Entry 
-                        x:Name="NewTaskEntry" 
-                        Placeholder="Enter new task..." 
-                        HorizontalOptions="FillAndExpand" />
-                        <Button 
-                        Text="✓" 
-                        FontSize="8"
-                        Clicked="OnSaveTaskClicked" 
-                        WidthRequest="20" 
-                        HeightRequest="20" 
-                        CornerRadius="30" />
-                        <Button 
-                        Text="x" 
-                        FontSize="8"
-                        Clicked="OnCancelTaskClicked" 
-                        BackgroundColor="IndianRed" 
-                        WidthRequest="20" 
-                        HeightRequest="20" 
-                        CornerRadius="30" />
-                    </StackLayout>
                     <ListView
                     x:Name="TasksListView"
                     ItemsSource="{Binding Tasks}"
