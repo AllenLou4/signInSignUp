@@ -9,12 +9,11 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
         <AbsoluteLayout Grid.Row="0">
             <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Grid Padding="10,0,10,10" RowDefinitions="Auto, Auto, *">
                     <Label
-                        Text="To Do Today"
+                        Text="{Binding HeaderText}"
                         Style="{StaticResource Headline}"
                         FontFamily="MontserratBlack-Bold"
                         FontSize="33"
@@ -39,8 +38,7 @@
                     </ListView>
                 </Grid>
             </ScrollView>
-
-            <Button 
+			<Button 
                 Text="+" 
                 Clicked="OnAddTaskClicked"
                 WidthRequest="60" 
@@ -65,7 +63,8 @@
                      HeightRequest="10" 
                      WidthRequest="10"
                      HorizontalOptions="Center" 
-                     VerticalOptions="Center" />
+                     VerticalOptions="Center"
+					 Clicked="OnActiveClicked"/>
                 <ImageButton Source="Resources/Images/finished.png" Grid.Column="1" 
                      HeightRequest="10" 
                      WidthRequest="5"

@@ -7,17 +7,31 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace signInSignUp.Pages
 {
-    public partial class ToDoPage : ContentPage
+    public partial class ToDoPage : ContentPage, INotifyPropertyChanged
     {
         private readonly string baseUrl = "https://todo-list.dcism.org";
         private readonly int userId;
-
-        private string currentStatus = "active";  
+        private string currentStatus = "active";
 
         public ObservableCollection<TaskItem> Tasks { get; set; }
+
+        private string headerText;
+        public string HeaderText
+        {
+            get => headerText;
+            set
+            {
+                if (headerText != value)
+                {
+                    headerText = value;
+                    OnPropertyChanged(nameof(HeaderText));
+                }
+            }
+        }
 
         public ToDoPage(int userId)
         {
@@ -25,18 +39,19 @@ namespace signInSignUp.Pages
             this.userId = userId;
 
             Tasks = new ObservableCollection<TaskItem>();
+            HeaderText = "To Do Today"; // default
             BindingContext = this;
 
             NavigationPage.SetHasBackButton(this, false);
             NavigationPage.SetHasNavigationBar(this, false);
 
-            LoadTasksAsync(); 
+            LoadTasksAsync(currentStatus);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            LoadTasksAsync(); 
+            LoadTasksAsync(currentStatus);
         }
 
         protected override bool OnBackButtonPressed() => true;
@@ -90,7 +105,7 @@ namespace signInSignUp.Pages
 
                     if (result?.Status == 200)
                     {
-                        await LoadTasksAsync(); 
+                        await LoadTasksAsync(currentStatus);
                     }
                     else
                     {
@@ -106,7 +121,8 @@ namespace signInSignUp.Pages
 
         private async Task LoadTasksAsync(string status = null)
         {
-            currentStatus = status ?? currentStatus;  
+            currentStatus = status ?? currentStatus;
+            HeaderText = currentStatus == "active" ? "To Do Today" : "Finished Tasks";
 
             try
             {
@@ -146,6 +162,10 @@ namespace signInSignUp.Pages
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     public class TaskItem
