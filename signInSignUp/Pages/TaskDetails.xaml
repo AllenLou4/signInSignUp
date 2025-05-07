@@ -7,14 +7,14 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
-            <Label Text="Task Name" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="Task Name" FontSize="20" FontAttributes="Bold" TextColor="#6E7C5E"/>
             <Entry x:Name="TaskNameEntry" Placeholder="Enter task name"/>
 
-            <Label Text="Description" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="Description" FontSize="20" FontAttributes="Bold" TextColor="#6E7C5E"/>
             <Editor x:Name="TaskDescriptionEditor" Placeholder="Enter description" AutoSize="TextChanges"/>
 
             <Button Text="Save Task" Clicked="OnSaveTaskClicked"
-                    BackgroundColor="DarkOliveGreen" TextColor="White" CornerRadius="10"/>
+                    BackgroundColor="#6E7C5E" TextColor="White" CornerRadius="10"/>
 
             <Label x:Name="StatusLabel" TextColor="Green" IsVisible="False"/>
         </VerticalStackLayout>
