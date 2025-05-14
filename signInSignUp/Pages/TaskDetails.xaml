@@ -3,98 +3,16 @@
              x:Class="signInSignUp.Pages.TaskDetails"
              BackgroundColor="FloralWhite">
 
-    <VerticalStackLayout>
-        <!-- Top Bar -->
-        <Grid ColumnDefinitions="Auto,*,Auto,Auto" Padding="15">
-            <!-- Back Button -->
-            <ImageButton Source="back_icon.png"
-                         Clicked="OnBackClicked"
-                         HeightRequest="24" WidthRequest="24" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Label Text="Task Name" FontSize="20" FontAttributes="Bold"/>
+            <Entry x:Name="TaskNameEntry" Placeholder="Enter task name"/>
 
-            <Label Grid.Column="1" Text="" />
+            <Label Text="Description" FontSize="20" FontAttributes="Bold"/>
+            <Editor x:Name="TaskDescriptionEditor" Placeholder="Enter description" AutoSize="TextChanges"/>
 
-            <!-- Attach Files Button -->
-            <ImageButton Grid.Column="1"
-                         
-                         Source="attachfiles.png"
-                         HeightRequest="24" WidthRequest="24"
-                         Clicked="OnAttachClicked" Margin="0,0,-180,0">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup Name="CommonStates">
-                        <VisualState Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#425A30" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </ImageButton>
-
-            <!-- Attach Image Button -->
-            <ImageButton Grid.Column="2"
-                         Source="attachimage.png"
-                         HeightRequest="24" WidthRequest="24"
-                         Clicked="OnImageClicked">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup Name="CommonStates">
-                        <VisualState Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#E0E0E0" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </ImageButton>
-
-            <!-- 3-dot Menu -->
-            <ImageButton Grid.Column="3"
-                         Source="threedotmenu.svg"
-                         BackgroundColor="Transparent"
-                         Padding="10"
-                         HeightRequest="50"
-                         WidthRequest="50"
-                         HorizontalOptions="End"
-                         VerticalOptions="Center"
-                         Clicked="OnMoreOptionsClicked"/>
-        </Grid>
-
-
-        <!-- Task Details -->
-        <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="20">
-                <Entry x:Name="TaskNameEntry" FontSize="36" FontFamily="Inter24ExtraBold" TextColor="#6E7C5E" Placeholder="Task Title"/>
-
-                <Label Text="Description" FontSize="20" FontAttributes="Bold" TextColor="#6E7C5E"/>
-                <Editor x:Name="TaskDescriptionEditor" Placeholder="Task Notes Here" AutoSize="TextChanges"/>
-
-                <!-- File Attachment Preview -->
-                <StackLayout x:Name="AttachmentPreview" IsVisible="False">
-                    <Label Text="Attachment Preview" FontAttributes="Bold" FontSize="18" TextColor="#6E7C5E"/>
-                    <HorizontalStackLayout Spacing="10" VerticalOptions="Start">
-                        <Image x:Name="FileIcon" WidthRequest="32" HeightRequest="32" />
-                        <Label x:Name="FileNameLabel" VerticalTextAlignment="Center" LineBreakMode="TailTruncation" />
-                    </HorizontalStackLayout>
-                </StackLayout>
-
-                <!-- Image Attachment Preview -->
-                <StackLayout x:Name="ImagePreview" IsVisible="False">
-                    <Label Text="Image Preview" FontAttributes="Bold" FontSize="18" TextColor="#6E7C5E"/>
-                    <Image x:Name="SelectedImage" HeightRequest="150" Aspect="AspectFill" />
-                </StackLayout>
-
-                <!-- Save Task Button -->
-                <Button Text="Save Task" Clicked="OnSaveTaskClicked"
-                        BackgroundColor="#6E7C5E" TextColor="White" CornerRadius="10"/>
+            <Button Text="Save Task" Clicked="OnSaveTaskClicked"
+                    BackgroundColor="DarkOliveGreen" TextColor="White" CornerRadius="10"/>
 
                 <!-- Status Label -->
                 <Label x:Name="StatusLabel" TextColor="Green" IsVisible="False"/>
