@@ -15,8 +15,9 @@ namespace signInSignUp.Pages
     {
         private readonly string baseUrl = "https://todo-list.dcism.org";
         private readonly int userId;
+        private int _userId;
+        private string _initialTab;
         private string currentStatus = "active";
-
         public ObservableCollection<TaskItem> Tasks { get; set; }
 
         private string headerText;
@@ -33,25 +34,30 @@ namespace signInSignUp.Pages
             }
         }
 
-        public ToDoPage(int userId)
+        public ToDoPage(int userId, string initialTab = "todo")
         {
             InitializeComponent();
             this.userId = userId;
+            _userId = userId;
+            _initialTab = initialTab;
 
             Tasks = new ObservableCollection<TaskItem>();
             HeaderText = "To Do Today"; 
             BindingContext = this;
 
+            SetActiveTab("todo"); // initial state
+            LoadTasksAsync("active");
+
             NavigationPage.SetHasBackButton(this, false);
             NavigationPage.SetHasNavigationBar(this, false);
 
-            LoadTasksAsync(currentStatus);
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            LoadTasksAsync(currentStatus);
+            SetActiveTab(_initialTab == "finished" ? "finished" : "todo");
+            await LoadTasksAsync(_initialTab == "finished" ? "inactive" : "active");
         }
 
         protected override bool OnBackButtonPressed() => true;
@@ -63,18 +69,75 @@ namespace signInSignUp.Pages
 
         private async void OnFinishedClicked(object sender, EventArgs e)
         {
+            SetActiveTab("finished");
             await LoadTasksAsync("inactive");
         }
 
         private async void OnActiveClicked(object sender, EventArgs e)
         {
+            SetActiveTab("todo");
             await LoadTasksAsync("active");
         }
 
         private async void OnProfileClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ProfilePage());
+            SetActiveTab("profile");
+            await Navigation.PushAsync(new ProfilePage(userId));
+
         }
+
+        private string toDoIcon;
+        public string ToDoIcon
+        {
+            get => toDoIcon;
+            set
+            {
+                toDoIcon = value;
+                OnPropertyChanged(nameof(ToDoIcon));
+            }
+        }
+
+        private string finishedIcon;
+        public string FinishedIcon
+        {
+            get => finishedIcon;
+            set
+            {
+                finishedIcon = value;
+                OnPropertyChanged(nameof(FinishedIcon));
+            }
+        }
+
+        private string profileIcon;
+        public string ProfileIcon
+        {
+            get => profileIcon;
+            set
+            {
+                profileIcon = value;
+                OnPropertyChanged(nameof(ProfileIcon));
+            }
+        }
+
+        private void SetActiveTab(string tab)
+        {
+            ToDoIcon = tab == "todo" ? "list_active.svg" : "list_inactive.svg";
+            FinishedIcon = tab == "finished" ? "finished_active.svg" : "finished_inactive.svg";
+            ProfileIcon = tab == "profile" ? "profile_active.svg" : "profile_inactive.svg";
+
+            ToDoBgColor = tab == "todo" ? Colors.DarkOliveGreen : Colors.Transparent;
+            FinishedBgColor = tab == "finished" ? Colors.DarkOliveGreen : Colors.Transparent;
+            ProfileBgColor = tab == "profile" ? Colors.DarkOliveGreen : Colors.Transparent;
+
+            // Notify UI
+            OnPropertyChanged(nameof(ToDoBgColor));
+            OnPropertyChanged(nameof(FinishedBgColor));
+            OnPropertyChanged(nameof(ProfileBgColor));
+        }
+
+        public Color ToDoBgColor { get; set; }
+        public Color FinishedBgColor { get; set; }
+        public Color ProfileBgColor { get; set; }
 
         private async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
@@ -119,10 +182,20 @@ namespace signInSignUp.Pages
             }
         }
 
+        private async void OnTaskTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item is TaskItem selectedTask)
+            {
+                await Navigation.PushAsync(new TaskDetails(userId, selectedTask));
+                ((ListView)sender).SelectedItem = null; // Deselect item
+            }
+        }
+
+
         private async Task LoadTasksAsync(string status = null)
         {
             currentStatus = status ?? currentStatus;
-            HeaderText = currentStatus == "active" ? "To Do Today" : "Finished Tasks";
+            HeaderText = currentStatus == "active" ? "To Do Today" : "Completed Tasks";
 
             try
             {
@@ -148,6 +221,7 @@ namespace signInSignUp.Pages
                         {
                             ItemId = task.ItemId,
                             Name = task.ItemName,
+                            Description = task.ItemDescription,
                             IsFinished = task.Status == "inactive"
                         });
                     }
@@ -172,6 +246,7 @@ namespace signInSignUp.Pages
     {
         public int ItemId { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public bool IsFinished { get; set; }
     }
 
